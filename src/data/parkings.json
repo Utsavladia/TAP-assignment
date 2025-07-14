@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "City Center Parking",
+        "lat": 26.2700,
+        "lng": 86.0150,
+        "pricePerKm": 20,
+        "basePrice": 20,
+        "rating": 4.5,
+        "image": "https://images.unsplash.com/photo-1707398813278-188a89cdee35?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 2,
+        "name": "Mall Parking",
+        "lat": 26.2700,
+        "lng": 86.0250,
+        "pricePerKm": 30,
+        "basePrice": 15,
+        "rating": 4.2,
+        "image": "https://images.unsplash.com/photo-1692863211226-cbba732754c9?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 3,
+        "name": "Railway Station Parking",
+        "lat": 26.2100,
+        "lng": 86.0200,
+        "pricePerKm": 45,
+        "basePrice": 25,
+        "rating": 4.7,
+        "image": "https://images.unsplash.com/photo-1621929747188-0b4dc28498d2?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    }
+]

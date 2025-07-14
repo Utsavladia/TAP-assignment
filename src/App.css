@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/* Custom styles for the parking app */
+
+/* Main container layout */
+.h-full.w-full.flex {
+  align-items: center;
+  justify-content: start;
+  padding: 0 1rem;
+}
+
+.custom-parking-marker {
+  background: transparent;
+  border: none;
+}
+
+/* Hover effect for parking markers */
+.custom-parking-marker:hover {
+  transform: scale(1.1);
+}
+
+/* Gray theme map controls */
+.leaflet-control-zoom a {
+  background-color: #240045 !important;
+  color: #6c757d !important;
+  border-color: #dee2e6 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: #e9ecef !important;
+  color: #495057 !important;
+}
+
+.leaflet-popup-content-wrapper {
+  /* background-color: #f8f9fa !important; */
+  color: #212529 !important;
+  /* border-radius: 8px !important; */
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important; */
+}
+
+.leaflet-popup-tip {
+  background-color: #000000 !important;
+}
+
+/* Ensure map container takes full height */
+.leaflet-container {
+  height: 100% !important;
+  width: 100% !important;
+  min-height: 500px;
+  border-top-left-radius: 1.5rem;
+  border-bottom-left-radius: 1.5rem;
+  overflow: hidden;
+  border: none;
+}
+
+
+
+.main-panel {
+  display: flex;
+  flex-direction: row;
+  height: 90vh;
+  width: 90vw;
+  margin: auto;
+  border-radius: 2rem;
+  backdrop-filter: blur(18px) saturate(120%);
+  padding: 1rem;
+  border: 1px solid #fff9e3b9;
+  background: rgba(0, 0, 0, 0.43);
+  gap: 1rem;
+}
+
+
+.yellow-glass {
+  background: linear-gradient(120deg, rgba(255, 224, 102, 0.18) 60%, rgba(255, 224, 102, 0.08) 100%);
+  backdrop-filter: blur(18px) saturate(120%);
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  border-radius: 2.5rem;
+  box-shadow: 0 0 32px 0 #ffe06644;
+  border: 1.5px solid #ffe06655;
+}
+
+.yellow-glow {
+  box-shadow: 0 0 32px 8px #ffe06688, 0 2px 8px 0 #000a;
+}
+
+/* Custom scrollbar for parking list */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #ffe06699;
+  border-radius: 4px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.map-panel {
+  height: 100%;
+  width: 70%;
+  min-height: 80vh;
+  display: flex;
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+
+.right-panel {
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Sidebar Panel Styles */
+.sidebar-panel {
+  height: 90vh;
+  width: 6vw;
+  display: flex;
+  flex-direction: column;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(18px) saturate(120%);
+  padding: 1rem;
+  border: 1px solid #fff9e3b9;
+  background: rgba(0, 0, 0, 0.43);
+}
+
+.sidebar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  border-radius: 1rem;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-height: 4rem;
+}
+
+.sidebar-item:hover {
+  background: rgba(255, 224, 102, 0.1);
+  transform: scale(1.05);
+  box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.2);
+}
+
+.sidebar-item.active {
+  background: rgba(255, 224, 102, 0.2);
+  box-shadow: 0 0 16px 4px rgba(255, 224, 102, 0.3);
+  border: 1px solid rgba(255, 224, 102, 0.4);
+}
+
+.sidebar-item.active span {
+  color: #ffe066;
+  font-weight: 600;
+}
+
+/* .right-panel button {
+  background-color: #ffe066;
+  color: #000000;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+} */
