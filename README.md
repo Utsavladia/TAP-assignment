@@ -48,9 +48,9 @@ In urban areas, finding a nearby parking spot in real-time is a common frustrati
 
 ## 📸 Screenshots
 -  <img width="1914" height="963" alt="image" src="https://github.com/user-attachments/assets/43977923-51cd-4578-bcd7-bc22839d93b5" />
- - Find parking buttons
+ ### Find parking buttons
 - <img width="1918" height="964" alt="image" src="https://github.com/user-attachments/assets/2fc1a661-e2bc-432a-8454-d68e0619de71" />
- – shows nearby spots
+### shows nearby spots
 - <img width="1919" height="958" alt="image" src="https://github.com/user-attachments/assets/e1334351-7de0-4854-acbd-df4b7b5a37f1" />
- – shows route to destination
+### shows route to destination
 
