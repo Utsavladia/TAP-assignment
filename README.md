@@ -1,12 +1,53 @@
-# React + Vite
+# 🚗 Smart Parking Finder – TAP Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Find nearby parking with ease, even on low networks.
 
-Currently, two official plugins are available:
+A smart parking web app that helps users **find, view, and book nearby parking spots** based on their current location. The app adapts to network speed, lazily loads content for performance, and visualizes routes to the parking destination.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🎯 Problem Solved
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+In urban areas, finding a nearby parking spot in real-time is a common frustration. This app:
+- Uses the **user's current location** to fetch nearby parking
+- Shows a list of available spots with live details
+- Lets users **select and book** a parking spot
+- **Visualizes route** to the selected parking spot
+- Handles **low-network conditions** gracefully
+- Enhances performance on scroll with lazy loading
+
+---
+
+## 🧩 Technologies Used
+
+- **React** – UI and state management
+- **TailwindCSS** – Styling
+- **Browser Web APIs** – For real-time, performance-enhanced UX
+- **(Optional)** GPT API – (If added) to recommend best spots based on time/distance
+
+---
+
+## 🌐 Web APIs Used
+
+### 1. 📍 Geolocation API
+- Fetches user’s **live current location** to find nearby parking spots
+- Updates user location at intervals during live routing
+
+### 2. 👁️ Intersection Observer API
+- **Lazy loads parking cards** and images as the user scrolls
+- Improves load time and performance on mobile devices
+
+### 3. 🌐 Network Information API
+- Detects **network speed and connection type**
+- If connection is slow:
+  - Switches to a simplified map
+  - Limits location update frequency
+  - Reduces image resolution for a smoother experience
+
+---
+
+## 📸 Screenshots
+-  `/screenshots/find-parkings.png` - Find parking buttons
+- `/screenshots/nearby-parkings.png` – shows nearby spots
+- `/screenshots/image.png` – shows route to destination
+
