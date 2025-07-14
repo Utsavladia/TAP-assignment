@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import MapView from './components/MapView';
-import ParkingList from './components/ParkingList';
-import Sidebar from './components/Sidebar';
-import BookingModal from './components/BookingModal';
-import Register from './components/Register';
+import MapView from './components/map/MapView';
+import ParkingList from './components/parking/ParkingList';
+import Sidebar from './components/sidebar/Sidebar';
+import BookingModal from './components/parking/BookingModal';
 import parkingData from './data/parkings.json';
 import './App.css';
+import { useUserLocation } from './hooks/useUserLocation';
+import { useNetworkStatus } from './hooks/useNetworkStatus';
+import { useLocationTracking } from './hooks/useLocationTracking';
 
 function MainApp() {
-  const [userLocation, setUserLocation] = useState(null);
+  const userLocation = useUserLocation();
   const [parkings, setParkings] = useState([]);
   const [selectedParking, setSelectedParking] = useState(null);
   const [routeData, setRouteData] = useState(null);
@@ -22,52 +24,29 @@ function MainApp() {
   const [isBookingLoading, setIsBookingLoading] = useState(false);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [isInitialMap, setIsInitialMap] = useState(true);
-  const [connectionInfo, setConnectionInfo] = useState(null);
-  const [locationWatchId, setLocationWatchId] = useState(null);
+  const connectionInfo = useNetworkStatus();
   const [isRouteUpdating, setIsRouteUpdating] = useState(false);
-  const [locationUpdateInterval, setLocationUpdateInterval] = useState(null);
-  const [isTrackingAfterBooking, setIsTrackingAfterBooking] = useState(false);
-  const [bookedParking, setBookedParking] = useState(null);
-
-  // Get user location on component mount
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setUserLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => {
-          setError('Unable to get your location. Please enable location services.');
-        }
-      );
-    } else {
-      setError('Geolocation is not supported by this browser.');
-    }
-  }, []);
 
   // Monitor network connection
-  useEffect(() => {
-    if (navigator.connection) {
-      const updateConnectionInfo = () => {
-        setConnectionInfo({
-          effectiveType: navigator.connection.effectiveType,
-          downlink: navigator.connection.downlink,
-          rtt: navigator.connection.rtt,
-          saveData: navigator.connection.saveData
-        });
-      };
+  // useEffect(() => {
+  //   if (navigator.connection) {
+  //     const updateConnectionInfo = () => {
+  //       setConnectionInfo({
+  //         effectiveType: navigator.connection.effectiveType,
+  //         downlink: navigator.connection.downlink,
+  //         rtt: navigator.connection.rtt,
+  //         saveData: navigator.connection.saveData
+  //       });
+  //     };
 
-      navigator.connection.addEventListener('change', updateConnectionInfo);
-      updateConnectionInfo();
+  //     navigator.connection.addEventListener('change', updateConnectionInfo);
+  //     updateConnectionInfo();
 
-      return () => {
-        navigator.connection.removeEventListener('change', updateConnectionInfo);
-      };
-    }
-  }, []);
+  //     return () => {
+  //       navigator.connection.removeEventListener('change', updateConnectionInfo);
+  //     };
+  //   }
+  // }, []);
 
   // Check if connection is slow or offline
   const isSlowConnection = () => {
@@ -265,7 +244,7 @@ function MainApp() {
     console.log(`Booking parking: ${parking.name}`);
 
     // Set the booked parking
-    setBookedParking(parking);
+    setSelectedParkingForBooking(parking);
 
     // Show success toast
     setShowSuccessToast(true);
@@ -328,80 +307,19 @@ function MainApp() {
     }, 3000);
   };
 
-  // Get optimal update interval based on network speed
-  const getUpdateInterval = () => {
-    if (!navigator.connection) return 15000; // Default 15 seconds
-
-    const { effectiveType, downlink } = navigator.connection;
-
-    if (effectiveType === '4g' && downlink > 10) {
-      return 5000; // 5 seconds for fast connections
-    } else if (effectiveType === '4g' || effectiveType === '3g') {
-      return 10000; // 10 seconds for medium connections
-    } else {
-      return 20000; // 20 seconds for slow connections
-    }
-  };
-
-  // Start location tracking after booking
-  const startLocationTracking = () => {
-    if (locationUpdateInterval) {
-      clearInterval(locationUpdateInterval);
-    }
-
-    const interval = getUpdateInterval();
-    console.log(`Starting location tracking with ${interval / 1000}s intervals (${connectionInfo?.effectiveType || 'unknown'} connection)`);
-
-    const updateInterval = setInterval(async () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const newLocation = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-
-            setUserLocation(newLocation);
-
-            // Update route if parking is selected
-            if (selectedParking) {
-              await updateRouteForNewLocation(newLocation, selectedParking);
-            }
-          },
-          (error) => {
-            console.error('Location update error:', error);
-          },
-          {
-            enableHighAccuracy: true,
-            maximumAge: 10000, // 10 seconds
-            timeout: 5000 // 5 seconds
-          }
-        );
-      }
-    }, interval);
-
-    setLocationUpdateInterval(updateInterval);
-    setIsTrackingAfterBooking(true);
-  };
-
-  // Stop location tracking
-  const stopLocationTracking = () => {
-    if (locationUpdateInterval) {
-      clearInterval(locationUpdateInterval);
-      setLocationUpdateInterval(null);
-    }
-    setIsTrackingAfterBooking(false);
-    console.log('Stopped location tracking');
-  };
+  const { startLocationTracking, stopLocationTracking, isTrackingAfterBooking } = useLocationTracking({
+    userLocation,
+    selectedParking,
+    updateRouteForNewLocation,
+    connectionInfo
+  });
 
   // Cleanup intervals on unmount
   useEffect(() => {
     return () => {
-      if (locationUpdateInterval) {
-        clearInterval(locationUpdateInterval);
-      }
+      stopLocationTracking();
     };
-  }, [locationUpdateInterval]);
+  }, [stopLocationTracking]);
 
   return (
     <div className="h-full w-full flex items-center justify-start relative">
@@ -475,11 +393,11 @@ function MainApp() {
       />
 
       {/* Success Toast */}
-      {showSuccessToast && bookedParking && (
+      {showSuccessToast && selectedParkingForBooking && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
           <div className="bg-green-600 text-white px-6 py-3 rounded-xl shadow-lg font-semibold flex items-center space-x-2">
             <span className="text-xl">✅</span>
-            <span>Booked: {bookedParking.name}</span>
+            <span>Booked: {selectedParkingForBooking.name}</span>
           </div>
         </div>
       )}
@@ -502,7 +420,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/register" element={<Register />} />
+
         <Route path="/*" element={<MainApp />} />
       </Routes>
     </Router>

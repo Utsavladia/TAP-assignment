@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap, Polyline } from 'react-leaflet';
 import L from 'leaflet';
-import carIcon from '../assets/car.svg';
-import parkingIcon from '../assets/parking.png';
+import carIcon from '../../assets/car.svg';
+import parkingIcon from '../../assets/parking.png';
 import 'leaflet/dist/leaflet.css';
+import { calculateDistance } from '../../utils/distance';
 
 // Fix for default markers in react-leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -119,18 +120,6 @@ const MapUpdater = ({ userLocation, selectedParking, routeData, showParkingSide,
     }, [userLocation, selectedParking, routeData, showParkingSide, map, isInitialMap]);
 
     return null;
-};
-
-// Calculate distance between two points
-const calculateDistance = (lat1, lng1, lat2, lng2) => {
-    const R = 6371; // Earth's radius in km
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLng = (lng2 - lng1) * Math.PI / 180;
-    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-        Math.sin(dLng / 2) * Math.sin(dLng / 2);
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c;
 };
 
 const MapView = ({ userLocation, parkings, selectedParking, routeData, onParkingSelect, showParkingSide, isInitialMap }) => {

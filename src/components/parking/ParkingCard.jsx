@@ -1,17 +1,8 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { calculateDistance } from '../../utils/distance';
+import ConfirmBookingModal from './ConfirmBookingModal';
 
 const ParkingCard = ({ parking, onBook, onSelect, isSelected, userLocation }) => {
-    const calculateDistance = (lat1, lng1, lat2, lng2) => {
-        const R = 6371; // Earth's radius in km
-        const dLat = (lat2 - lat1) * Math.PI / 180;
-        const dLng = (lng2 - lng1) * Math.PI / 180;
-        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLng / 2) * Math.sin(dLng / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return (R * c).toFixed(1);
-    };
-
     // Use user's actual location if available, otherwise fallback to default
     const userLat = userLocation ? userLocation.lat : 28.6139;
     const userLng = userLocation ? userLocation.lng : 77.2090;
@@ -28,6 +19,7 @@ const ParkingCard = ({ parking, onBook, onSelect, isSelected, userLocation }) =>
 
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef();
+    const [showConfirm, setShowConfirm] = useState(false);
 
     useEffect(() => {
         const observer = new window.IntersectionObserver(
@@ -80,11 +72,19 @@ const ParkingCard = ({ parking, onBook, onSelect, isSelected, userLocation }) =>
             </div>
 
             <button
-                onClick={() => onBook(parking)}
+                onClick={(e) => { e.stopPropagation(); setShowConfirm(true); }}
                 className="w-full bg-gradient-to-r from-yellow-400/90 to-yellow-500/90 backdrop-blur-sm text-gray-900 py-3 px-4 rounded-lg hover:from-yellow-500 hover:to-yellow-600 transition-all duration-300 font-bold shadow-md hover:shadow-lg transform hover:scale-105 drop-shadow-sm"
             >
                 Book Now
             </button>
+            {showConfirm && (
+                <ConfirmBookingModal
+                    parking={parking}
+                    onConfirm={() => { setShowConfirm(false); onBook(parking); }}
+                    onCancel={() => setShowConfirm(false)}
+                    userLocation={userLocation}
+                />
+            )}
         </div>
     );
 };

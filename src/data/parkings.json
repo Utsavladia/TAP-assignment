@@ -2,8 +2,8 @@
     {
         "id": 1,
         "name": "City Center Parking",
-        "lat": 26.2700,
-        "lng": 86.0150,
+        "lat": 28.6139,
+        "lng": 77.2090,
         "pricePerKm": 20,
         "basePrice": 20,
         "rating": 4.5,
@@ -12,8 +12,8 @@
     {
         "id": 2,
         "name": "Mall Parking",
-        "lat": 26.2700,
-        "lng": 86.0250,
+        "lat": 19.0760,
+        "lng": 72.8777,
         "pricePerKm": 30,
         "basePrice": 15,
         "rating": 4.2,
@@ -22,11 +22,61 @@
     {
         "id": 3,
         "name": "Railway Station Parking",
-        "lat": 26.2100,
-        "lng": 86.0200,
+        "lat": 12.9716,
+        "lng": 77.5946,
         "pricePerKm": 45,
         "basePrice": 25,
         "rating": 4.7,
         "image": "https://images.unsplash.com/photo-1621929747188-0b4dc28498d2?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 4,
+        "name": "Airport Parking",
+        "lat": 22.5726,
+        "lng": 88.3639,
+        "pricePerKm": 35,
+        "basePrice": 30,
+        "rating": 4.6,
+        "image": "https://images.unsplash.com/photo-1542128961-b91a1a5393b7?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 5,
+        "name": "Tech Park Parking",
+        "lat": 13.0827,
+        "lng": 80.2707,
+        "pricePerKm": 25,
+        "basePrice": 18,
+        "rating": 4.3,
+        "image": "https://images.unsplash.com/photo-1626884620768-446178df7024?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 6,
+        "name": "Hospital Parking",
+        "lat": 23.0225,
+        "lng": 72.5714,
+        "pricePerKm": 22,
+        "basePrice": 12,
+        "rating": 4.1,
+        "image": "https://images.unsplash.com/photo-1538156424676-e758db0a8292?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 7,
+        "name": "University Parking",
+        "lat": 26.9124,
+        "lng": 75.7873,
+        "pricePerKm": 28,
+        "basePrice": 16,
+        "rating": 4.4,
+        "image": "https://images.unsplash.com/photo-1651346863757-260c72489f07?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+    },
+    {
+        "id": 8,
+        "name": "Stadium Parking",
+        "lat": 18.5204,
+        "lng": 73.8567,
+        "pricePerKm": 40,
+        "basePrice": 22,
+        "rating": 4.8,
+        "image": "https://images.unsplash.com/photo-1578859695220-856a4f5edd39?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
 ]
